@@ -10,9 +10,14 @@ export class AppComponent {
   observable = new Observable<number>((observer) => {
     let count = 0;
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       observer.next(count++);
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      console.log('Interval Cleared...');
+    }
 
   });
   constructor() {
