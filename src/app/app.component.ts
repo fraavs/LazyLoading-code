@@ -5,24 +5,18 @@ import { Observable } from 'rxjs';
   selector: 'app-root',
   template: `
     <h1>Understanding Async Pipe</h1>
-    <p>{{value$ | async}}</p>
+    <p *ngFor="let v of value$ | async">{{v}}</p>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  value$: Observable<any>;
+  value$: Observable<number[]>;
 
   constructor() {
-    this.value$ = new Observable((observer) => {
-      setInterval(() => {
-        const date = new Date();
-        const estTime = date.toLocaleString('en-US',
-          {
-            timeZone: 'America/New_York',
-            dateStyle: 'full',
-            timeStyle: 'full'
-          });
-        observer.next(estTime);
+    this.value$ = new Observable<number[]>((observer) => {
+      setTimeout(()=>{
+        observer.next([1, 2, 3, 4, 5]);
+        observer.complete();
       }, 1000);
     });
   }
