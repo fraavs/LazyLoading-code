@@ -3,31 +3,23 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h1>Understanding Async Pipe</h1>
+    <p>Value from Observable: {{value$ | async}}</p>
+  `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  observable = new Observable<number>((observer) => {
-    let count = 0;
+  value$: Observable<number>;
 
-    const interval = setInterval(() => {
-      observer.next(count++);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-      console.log('Interval Cleared...');
-    }
-
-  });
-  constructor() {
-    const obs = this.observable.subscribe((data) => {
-      console.log("Data: ", data);
+  constructor(){
+    this.value$ = new Observable((observer)=> {
+      setTimeout(()=>{
+        observer.next(1);
+        observer.next(2);
+        observer.next(3);
+        observer.next(4);
+      }, 2000);
     });
-
-    setTimeout(() => {
-      obs.unsubscribe();
-      console.log('Unsubscribed');
-    }, 5000);
   }
 }
