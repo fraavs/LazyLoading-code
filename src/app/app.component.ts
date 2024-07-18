@@ -5,19 +5,18 @@ import { Observable } from 'rxjs';
   selector: 'app-root',
   template: `
     <h1>Understanding Async Pipe</h1>
-    <p *ngFor="let v of value$ | async">{{v}}</p>
+    <p>{{resolvePromise$ | async}}</p>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  value$: Observable<number[]>;
+  resolvePromise$: Promise<string>;
 
   constructor() {
-    this.value$ = new Observable<number[]>((observer) => {
-      setTimeout(()=>{
-        observer.next([1, 2, 3, 4, 5]);
-        observer.complete();
-      }, 1000);
+    this.resolvePromise$ = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('Promise executed');
+      }, 2000);
     });
   }
 }
