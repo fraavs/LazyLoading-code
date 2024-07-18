@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   observable = new Observable((observer) => {
     observer.next('Hello');
+    observer.error('An error occurred');
+    observer.complete();
   }).subscribe({
     next(value) {
       console.log('Received value : ', value);
