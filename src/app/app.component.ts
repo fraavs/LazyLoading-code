@@ -1,22 +1,20 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <h1>Understanding Async Pipe</h1>
-    <p>{{resolvePromise$ | async}}</p>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  resolvePromise$: Promise<string>;
+export class AppComponent implements OnInit {
+  fetchData: string = '';
+  isLoading: boolean = true;
 
-  constructor() {
-    this.resolvePromise$ = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('Promise executed');
-      }, 2000);
-    });
+  ngOnInit(): void {
+    timer(3000).subscribe(() => {
+      this.isLoading = false;
+      this.fetchData = 'Timer function executed ...';
+    })
+
   }
 }

@@ -1,4 +1,19 @@
-<h1>Lazy Loading modules</h1>
-<button routerLink="/first">First Module</button>
-<button routerLink="/second">Second Module</button>
-<router-outlet></router-outlet>
+<h1>RxJS (timer) Operator</h1>
+<div *ngIf="isLoading; else fetchContent">
+  <div class="loading-spinner">
+    Loading...
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<ng-template #fetchContent>
+  <div>
+    <p>
+      {{fetchData}}
+    </p>
+  </div>
+</ng-template>
