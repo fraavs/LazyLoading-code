@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, timer } from 'rxjs';
+import { Observable, timer, EMPTY, of, from, fromEvent, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +7,12 @@ import { Observable, timer } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  fetchData: string = '';
-  isLoading: boolean = true;
+  cursorPosition$?: Observable<{ x: number, y: number }>;
 
   ngOnInit(): void {
-    timer(3000).subscribe(() => {
-      this.isLoading = false;
-      this.fetchData = 'Timer function executed ...';
-    })
-
+    this.cursorPosition$ = fromEvent<MouseEvent>(window, 'mousemove')
+      .pipe(
+        map((event) => ({ x: event.clientX, y: event.clientY }))
+      );
   }
 }

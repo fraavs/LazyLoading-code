@@ -1,19 +1,5 @@
-<h1>RxJS (timer) Operator</h1>
-<div *ngIf="isLoading; else fetchContent">
-  <div class="loading-spinner">
-    Loading...
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
+<h1>RxJS ( map ) Operator</h1>
+<div>
+  <p>Cursor X: {{(cursorPosition$ | async)?.x}}</p>
+  <p>Cursor Y: {{(cursorPosition$ | async)?.y}}</p>
 </div>
-<ng-template #fetchContent>
-  <div>
-    <p>
-      {{fetchData}}
-    </p>
-  </div>
-</ng-template>
