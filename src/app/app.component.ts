@@ -5,21 +5,25 @@ import { Observable } from 'rxjs';
   selector: 'app-root',
   template: `
     <h1>Understanding Async Pipe</h1>
-    <p>Value from Observable: {{value$ | async}}</p>
+    <p>{{value$ | async}}</p>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  value$: Observable<number>;
+  value$: Observable<any>;
 
-  constructor(){
-    this.value$ = new Observable((observer)=> {
-      setTimeout(()=>{
-        observer.next(1);
-        observer.next(2);
-        observer.next(3);
-        observer.next(4);
-      }, 2000);
+  constructor() {
+    this.value$ = new Observable((observer) => {
+      setInterval(() => {
+        const date = new Date();
+        const estTime = date.toLocaleString('en-US',
+          {
+            timeZone: 'America/New_York',
+            dateStyle: 'full',
+            timeStyle: 'full'
+          });
+        observer.next(estTime);
+      }, 1000);
     });
   }
 }
