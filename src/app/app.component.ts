@@ -13,5 +13,11 @@ export class AppComponent {
     next(value) {
       console.log('Received value : ', value);
     },
+    error(err) {
+      console.log('Error : ', err);
+    },
+    complete() {
+      console.log('Observable completed ...')
+    }
   });
 }
